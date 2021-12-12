@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import { db } from "../../firebase";
 import {
   Table,
   TableBody,
@@ -11,32 +9,14 @@ import {
   CircularProgress,
   Box,
 } from "@material-ui/core";
-import addRankingToData from "../../utils/addRankingToData";
-import { RankingData } from "../../types";
-import { child, get, ref } from "firebase/database";
+import useRanking from "../../hooks/useRanking";
 
 export default function Ranking() {
-  const [data, setData] = useState<RankingData[]>([]);
-  useEffect(() => {
-    const dbRef = ref(db);
-    get(child(dbRef, "data"))
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          const rawData = snapshot.val();
-          const data = addRankingToData(rawData);
-          setData(data);
-        } else {
-          console.log("No data available");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+  const ranking = useRanking();
   return (
     <>
       <h2>Ranking Page</h2>
-      {data.length === 0 ? (
+      {!ranking ? (
         <Box textAlign="center">
           <CircularProgress />
         </Box>
@@ -60,7 +40,7 @@ export default function Ranking() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((person) => {
+              {ranking.map((person) => {
                 return (
                   <TableRow key={person.id}>
                     <TableCell align="center">{person.ranking}</TableCell>

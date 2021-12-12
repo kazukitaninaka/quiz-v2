@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import firebase from "../firebase";
 import {
   Link,
   Box,
@@ -11,8 +9,8 @@ import {
   Paper,
   TableContainer,
 } from "@material-ui/core";
-import addRankingToData from "../utils/addRankingToData";
-import { PlayerData, RankingData } from "../types";
+import { PlayerData } from "../types";
+import useRanking from "../hooks/useRanking";
 
 type Props = {
   score: number;
@@ -20,15 +18,7 @@ type Props = {
 };
 
 const Result = ({ score, playerData }: Props) => {
-  const [data, setData] = useState<RankingData[]>([]);
-  useEffect(() => {
-    const dataRef = firebase.database().ref("data");
-    dataRef.on("value", (snapshot) => {
-      const rawData = snapshot.val();
-      const data = addRankingToData(rawData);
-      setData(data);
-    });
-  }, []);
+  const ranking = useRanking();
 
   return (
     <div>
@@ -54,31 +44,32 @@ const Result = ({ score, playerData }: Props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((el) => {
-              if (el.id === playerData.id) {
-                return (
-                  <TableRow key={el.name}>
-                    <TableCell align="center" style={{ fontWeight: "bold" }}>
-                      {el.ranking}
-                    </TableCell>
-                    <TableCell align="center" style={{ fontWeight: "bold" }}>
-                      {el.name} (You)
-                    </TableCell>
-                    <TableCell align="center" style={{ fontWeight: "bold" }}>
-                      {el.score}
-                    </TableCell>
-                  </TableRow>
-                );
-              } else {
-                return (
-                  <TableRow key={el.name}>
-                    <TableCell align="center">{el.ranking}</TableCell>
-                    <TableCell align="center">{el.name}</TableCell>
-                    <TableCell align="center">{el.score}</TableCell>
-                  </TableRow>
-                );
-              }
-            })}
+            {ranking &&
+              ranking.map((el) => {
+                if (el.id === playerData.id) {
+                  return (
+                    <TableRow key={el.name}>
+                      <TableCell align="center" style={{ fontWeight: "bold" }}>
+                        {el.ranking}
+                      </TableCell>
+                      <TableCell align="center" style={{ fontWeight: "bold" }}>
+                        {el.name} (You)
+                      </TableCell>
+                      <TableCell align="center" style={{ fontWeight: "bold" }}>
+                        {el.score}
+                      </TableCell>
+                    </TableRow>
+                  );
+                } else {
+                  return (
+                    <TableRow key={el.name}>
+                      <TableCell align="center">{el.ranking}</TableCell>
+                      <TableCell align="center">{el.name}</TableCell>
+                      <TableCell align="center">{el.score}</TableCell>
+                    </TableRow>
+                  );
+                }
+              })}
           </TableBody>
         </Table>
       </TableContainer>

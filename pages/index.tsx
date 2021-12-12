@@ -6,6 +6,7 @@ import Result from "../components/./Result";
 import { db } from "../firebase";
 import shuffleArray from "../utils/shuffle";
 import { PlayerData, QuizData, QuizInfo } from "../types";
+import { ref, set } from "firebase/database";
 
 export default function Home() {
   const [gameStarted, setGameStarted] = useState<boolean>(false);
@@ -53,12 +54,17 @@ export default function Home() {
 
   const finishGame = () => {
     // send score to db
-    const dataRef = firebase.database().ref("data");
-    dataRef.push({
+    set(ref(db, `ranking/${playerData.id}`), {
       name: playerData.name,
       id: playerData.id,
       score,
     });
+    // const dataRef = firebase.database().ref("data");
+    // dataRef.push({
+    //   name: playerData.name,
+    //   id: playerData.id,
+    //   score,
+    // });
 
     // finish game
     setQuestionNum((prev) => prev + 1);
