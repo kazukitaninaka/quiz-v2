@@ -1,20 +1,11 @@
-const Footer = () => {
-  return (
-    <footer
-      style={{
-        position: "relative",
-        bottom: "0",
-        left: "0",
-        backgroundColor: "#3f51b5",
-        padding: "30px",
-        width: "100%",
-        color: "#fff",
-        marginTop: "30px",
-      }}
-    >
-      Copyrights &copy; 2021 Kazuki Taninaka. All rights reserved
-    </footer>
-  );
-};
+import { Flex, Text } from "@chakra-ui/react";
 
-export default Footer;
+export default function Footer() {
+  return (
+    <Flex p={5} backgroundColor="blue.500" as="footer">
+      <Text color="white">
+        Copyrights &copy; 2021 Kazuki Taninaka. All rights reserved
+      </Text>
+    </Flex>
+  );
+}
