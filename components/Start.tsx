@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { TextField, Button, Box } from "@material-ui/core";
 import { PlayerData } from "../types";
+import { Heading, Input, Button, Flex } from "@chakra-ui/react";
 
 type Props = {
   startGame: () => void;
@@ -17,29 +17,34 @@ const Start = ({ startGame, setPlayerData, playersName }: Props) => {
   };
   return (
     <div>
-      <h2>Easy Quiz Game!</h2>
+      <Heading as="h3" mt={5}>
+        Easy Quiz Game!
+      </Heading>
       <form>
-        <TextField
-          id="standard-basic"
-          label="Your name"
-          autoComplete="off"
-          onChange={(e) =>
-            setPlayerData({ id: Date.now(), name: e.target.value })
-          }
-          required
-          value={playersName}
-          onKeyPress={handleStartGame}
-        />
-        <Box style={{ marginTop: "8px" }}>
+        <Flex direction="column">
+          <Input
+            variant="flushed"
+            placeholder="Your name"
+            w="30%"
+            onChange={(e) =>
+              setPlayerData({ id: Date.now(), name: e.target.value })
+            }
+            required
+            value={playersName}
+            onKeyPress={handleStartGame}
+            mt={5}
+          />
           <Button
-            color="primary"
-            variant="contained"
+            colorScheme="blue"
+            variant="solid"
             onClick={startGame}
             disabled={playersName === ""}
+            w="20%"
+            mt={3}
           >
             Start
           </Button>
-        </Box>
+        </Flex>
       </form>
     </div>
   );
