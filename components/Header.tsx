@@ -9,9 +9,9 @@ export default function Header() {
           Quiz
         </Text>
       </Link>
-      <Flex alignItems="center" color="white">
+      <Flex alignItems="center" color="white" ml={8}>
         <Link href="/ranking" _hover={{ textDecoration: "none" }}>
-          <Text fontSize="lg" fontWeight="bold" ml={8}>
+          <Text fontSize="lg" fontWeight="bold">
             Ranking
           </Text>
         </Link>
