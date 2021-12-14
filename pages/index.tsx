@@ -59,13 +59,6 @@ export default function Home() {
       id: playerData.id,
       score,
     });
-    // const dataRef = firebase.database().ref("data");
-    // dataRef.push({
-    //   name: playerData.name,
-    //   id: playerData.id,
-    //   score,
-    // });
-
     // finish game
     setQuestionNum((prev) => prev + 1);
   };
