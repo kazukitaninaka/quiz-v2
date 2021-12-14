@@ -1,6 +1,6 @@
-import React, { useState, Dispatch, SetStateAction } from "react";
-import { makeStyles, Box, Button } from "@material-ui/core";
-import { QuizInfo, UserAnswerStatus } from "../types";
+import React, { useState, Dispatch, SetStateAction } from 'react';
+import { makeStyles, Box, Button } from '@material-ui/core';
+import { QuizInfo, UserAnswerStatus } from '../../types';
 
 type Props = {
   questionData: QuizInfo;
@@ -18,8 +18,7 @@ const QuestionCard = ({
   finishGame,
 }: Props) => {
   const [userAnswer, setUserAnswer] = useState<string | null>(null);
-  const [userAnswerStatus, setUserAnswerStatus] =
-    useState<UserAnswerStatus>("notAnsweredYet");
+  const [userAnswerStatus, setUserAnswerStatus] = useState<UserAnswerStatus>('notAnsweredYet');
   // could be either "correct", "incorrect", or null
   const [showNextQuestionButton, setShowNextQuestionButton] = useState(false);
   const [showResultButton, setShowResultButton] = useState(false);
@@ -37,18 +36,17 @@ const QuestionCard = ({
 
     handleAfterAnswering(correct);
 
-    setUserAnswerStatus(correct ? "correct" : "incorrect");
+    setUserAnswerStatus(correct ? 'correct' : 'incorrect');
 
     setUserAnswer(userAnswer);
   };
   // handle correct incorrect statement
   let correctStatement = null;
-  if (userAnswerStatus === "correct") correctStatement = <h3>🎉Correct!</h3>;
-  if (userAnswerStatus === "incorrect")
-    correctStatement = <h3>😭Incorrect...</h3>;
+  if (userAnswerStatus === 'correct') correctStatement = <h3>🎉Correct!</h3>;
+  if (userAnswerStatus === 'incorrect') correctStatement = <h3>😭Incorrect...</h3>;
 
   const goNextQuestion = () => {
-    setUserAnswerStatus("notAnsweredYet");
+    setUserAnswerStatus('notAnsweredYet');
     setShowNextQuestionButton(false);
     setShowResultButton(false);
     setQuestionNum((prev) => prev + 1);
@@ -57,7 +55,7 @@ const QuestionCard = ({
   //style
   const useStyles = makeStyles({
     root: {
-      pointerEvents: "none",
+      pointerEvents: 'none',
     },
   });
 
@@ -68,48 +66,42 @@ const QuestionCard = ({
       <p>Q{questionNum}/5</p>
       <h3>{decodeURIComponent(questionData.question)}</h3>
       {questionData.answers.map((answer, index) => {
-        let buttonVariant: "outlined" | "contained" = "outlined";
-        let buttonColor: "primary" | "secondary" = "primary";
+        let buttonVariant: 'outlined' | 'contained' = 'outlined';
+        let buttonColor: 'primary' | 'secondary' = 'primary';
         let emoji = null;
         switch (userAnswerStatus) {
-          case "correct":
+          case 'correct':
             if (answer === userAnswer) {
-              buttonVariant = "contained";
-              buttonColor = "primary";
-              emoji = "🙆‍";
+              buttonVariant = 'contained';
+              buttonColor = 'primary';
+              emoji = '🙆‍';
             }
             break;
-          case "incorrect":
+          case 'incorrect':
             if (answer === userAnswer) {
-              buttonVariant = "contained";
-              buttonColor = "secondary";
-              emoji = "🙅‍♀️";
+              buttonVariant = 'contained';
+              buttonColor = 'secondary';
+              emoji = '🙅‍♀️';
             } else if (answer === questionData.correct_answer) {
-              buttonVariant = "contained";
-              buttonColor = "primary";
-              emoji = "🙆‍";
+              buttonVariant = 'contained';
+              buttonColor = 'primary';
+              emoji = '🙆‍';
             }
             break;
           default:
-            buttonVariant = "outlined";
-            buttonColor = "primary";
+            buttonVariant = 'outlined';
+            buttonColor = 'primary';
             emoji = null;
         }
         return (
           <Box my={1} key={index}>
             <Button
-              className={
-                userAnswerStatus !== "notAnsweredYet"
-                  ? buttonStyle.root
-                  : undefined
-              }
+              className={userAnswerStatus !== 'notAnsweredYet' ? buttonStyle.root : undefined}
               variant={buttonVariant}
               color={buttonColor}
               fullWidth
               value={answer}
-              onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
-                checkAnswer(e)
-              }
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => checkAnswer(e)}
             >
               {decodeURIComponent(answer)} {emoji}
             </Button>
@@ -118,11 +110,11 @@ const QuestionCard = ({
       })}
       {correctStatement}
       {showNextQuestionButton ? (
-        <Button variant="contained" color="primary" onClick={goNextQuestion}>
+        <Button variant='contained' color='primary' onClick={goNextQuestion}>
           Next Question
         </Button>
       ) : showResultButton ? (
-        <Button variant="contained" color="primary" onClick={finishGame}>
+        <Button variant='contained' color='primary' onClick={finishGame}>
           Result
         </Button>
       ) : null}

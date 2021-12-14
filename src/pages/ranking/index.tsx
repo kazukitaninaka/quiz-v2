@@ -8,8 +8,8 @@ import {
   TableContainer,
   CircularProgress,
   Box,
-} from "@material-ui/core";
-import useRanking from "../../hooks/useRanking";
+} from '@material-ui/core';
+import useRanking from '../../hooks/useRanking';
 
 export default function Ranking() {
   const ranking = useRanking();
@@ -17,7 +17,7 @@ export default function Ranking() {
     <>
       <h2>Ranking Page</h2>
       {!ranking ? (
-        <Box textAlign="center">
+        <Box textAlign='center'>
           <CircularProgress />
         </Box>
       ) : (
@@ -25,16 +25,13 @@ export default function Ranking() {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell
-                  align="left"
-                  style={{ maxWidth: "15%", fontWeight: "bold" }}
-                >
+                <TableCell align='left' style={{ maxWidth: '15%', fontWeight: 'bold' }}>
                   Rank
                 </TableCell>
-                <TableCell align="left" style={{ fontWeight: "bold" }}>
+                <TableCell align='left' style={{ fontWeight: 'bold' }}>
                   Name
                 </TableCell>
-                <TableCell align="left" style={{ fontWeight: "bold" }}>
+                <TableCell align='left' style={{ fontWeight: 'bold' }}>
                   Score
                 </TableCell>
               </TableRow>
@@ -43,9 +40,9 @@ export default function Ranking() {
               {ranking.map((person) => {
                 return (
                   <TableRow key={person.id}>
-                    <TableCell align="center">{person.ranking}</TableCell>
-                    <TableCell align="center">{person.name}</TableCell>
-                    <TableCell align="center">{person.score}</TableCell>
+                    <TableCell align='center'>{person.ranking}</TableCell>
+                    <TableCell align='center'>{person.name}</TableCell>
+                    <TableCell align='center'>{person.score}</TableCell>
                   </TableRow>
                 );
               })}

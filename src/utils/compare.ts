@@ -1,4 +1,4 @@
-import { RankingData } from "../types";
+import { RankingData } from '../../types';
 
 const compare = (a: RankingData, b: RankingData) => {
   if (a.score < b.score) {

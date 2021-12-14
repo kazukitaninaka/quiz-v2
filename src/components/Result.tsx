@@ -8,9 +8,9 @@ import {
   TableRow,
   Paper,
   TableContainer,
-} from "@material-ui/core";
-import { PlayerData } from "../types";
-import useRanking from "../hooks/useRanking";
+} from '@material-ui/core';
+import { PlayerData } from '../../types';
+import useRanking from '../hooks/useRanking';
 
 type Props = {
   score: number;
@@ -29,16 +29,13 @@ const Result = ({ score, playerData }: Props) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell
-                align="left"
-                style={{ maxWidth: "15%", fontWeight: "bold" }}
-              >
+              <TableCell align='left' style={{ maxWidth: '15%', fontWeight: 'bold' }}>
                 Rank
               </TableCell>
-              <TableCell align="left" style={{ fontWeight: "bold" }}>
+              <TableCell align='left' style={{ fontWeight: 'bold' }}>
                 Name
               </TableCell>
-              <TableCell align="left" style={{ fontWeight: "bold" }}>
+              <TableCell align='left' style={{ fontWeight: 'bold' }}>
                 Score
               </TableCell>
             </TableRow>
@@ -49,13 +46,13 @@ const Result = ({ score, playerData }: Props) => {
                 if (el.id === playerData.id) {
                   return (
                     <TableRow key={el.name}>
-                      <TableCell align="center" style={{ fontWeight: "bold" }}>
+                      <TableCell align='center' style={{ fontWeight: 'bold' }}>
                         {el.ranking}
                       </TableCell>
-                      <TableCell align="center" style={{ fontWeight: "bold" }}>
+                      <TableCell align='center' style={{ fontWeight: 'bold' }}>
                         {el.name} (You)
                       </TableCell>
-                      <TableCell align="center" style={{ fontWeight: "bold" }}>
+                      <TableCell align='center' style={{ fontWeight: 'bold' }}>
                         {el.score}
                       </TableCell>
                     </TableRow>
@@ -63,9 +60,9 @@ const Result = ({ score, playerData }: Props) => {
                 } else {
                   return (
                     <TableRow key={el.name}>
-                      <TableCell align="center">{el.ranking}</TableCell>
-                      <TableCell align="center">{el.name}</TableCell>
-                      <TableCell align="center">{el.score}</TableCell>
+                      <TableCell align='center'>{el.ranking}</TableCell>
+                      <TableCell align='center'>{el.name}</TableCell>
+                      <TableCell align='center'>{el.score}</TableCell>
                     </TableRow>
                   );
                 }
@@ -74,14 +71,10 @@ const Result = ({ score, playerData }: Props) => {
         </Table>
       </TableContainer>
       <Box mt={2}>
-        <Link
-          href="/"
-          underline="always"
-          style={{ marginRight: "16px", marginTop: "16px" }}
-        >
+        <Link href='/' underline='always' style={{ marginRight: '16px', marginTop: '16px' }}>
           Go Back to Top
         </Link>
-        <Link href="/ranking" underline="always">
+        <Link href='/ranking' underline='always'>
           Go to Ranking Page
         </Link>
       </Box>

@@ -1,18 +1,18 @@
-import { useState } from "react";
-import { Container, Box, CircularProgress } from "@material-ui/core";
-import QuestionCard from "../components/QuestionCard";
-import Start from "../components/./Start";
-import Result from "../components/./Result";
-import { db } from "../firebase";
-import shuffleArray from "../utils/shuffle";
-import { PlayerData, QuizData, QuizInfo } from "../types";
-import { ref, set } from "firebase/database";
+import { useState } from 'react';
+import { Container, Box, CircularProgress } from '@material-ui/core';
+import QuestionCard from '../components/QuestionCard';
+import Start from '../components/Start';
+import Result from '../components/Result';
+import { db } from '../../firebase';
+import shuffleArray from '../utils/shuffle';
+import { PlayerData, QuizData, QuizInfo } from '../../types';
+import { ref, set } from 'firebase/database';
 
 export default function Home() {
   const [gameStarted, setGameStarted] = useState<boolean>(false);
   const [playerData, setPlayerData] = useState<PlayerData>({
     id: null,
-    name: "",
+    name: '',
   });
   const [quiz, setQuiz] = useState<QuizInfo[] | null>(null);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -23,17 +23,14 @@ export default function Home() {
   const startGame = () => {
     setGameStarted(true);
     fetch(
-      "https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple&encode=url3986"
+      'https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple&encode=url3986',
     )
       .then((res) => res.json())
       .then(
         (quizData) => {
           const data = quizData.results.map((quiz: QuizData) => ({
             ...quiz,
-            answers: shuffleArray([
-              ...quiz.incorrect_answers,
-              quiz.correct_answer,
-            ]),
+            answers: shuffleArray([...quiz.incorrect_answers, quiz.correct_answer]),
           }));
           console.log(data);
           setQuiz(data);
@@ -42,7 +39,7 @@ export default function Home() {
         (error) => {
           setIsLoaded(true);
           setError(error);
-        }
+        },
       );
     setQuestionNum(1);
   };
@@ -66,17 +63,13 @@ export default function Home() {
   let content;
   if (!gameStarted && !score) {
     content = (
-      <Start
-        startGame={startGame}
-        setPlayerData={setPlayerData}
-        playersName={playerData.name}
-      />
+      <Start startGame={startGame} setPlayerData={setPlayerData} playersName={playerData.name} />
     );
   } else if (error) {
     content = <div>{error}</div>;
   } else if (!isLoaded || !quiz) {
     content = (
-      <Box textAlign="center">
+      <Box textAlign='center'>
         <CircularProgress />
       </Box>
     );

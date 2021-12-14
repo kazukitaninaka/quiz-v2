@@ -1,6 +1,6 @@
-import React, { Dispatch, SetStateAction } from "react";
-import { PlayerData } from "../types";
-import { Heading, Input, Button, Flex } from "@chakra-ui/react";
+import React, { Dispatch, SetStateAction } from 'react';
+import { PlayerData } from '../../types';
+import { Heading, Input, Button, Flex } from '@chakra-ui/react';
 
 type Props = {
   startGame: () => void;
@@ -11,35 +11,33 @@ type Props = {
 const Start = ({ startGame, setPlayerData, playersName }: Props) => {
   // Enabling pressing enter to start game
   const handleStartGame = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (playersName !== "" && e.key === "Enter") {
+    if (playersName !== '' && e.key === 'Enter') {
       startGame();
     }
   };
   return (
     <div>
-      <Heading as="h3" mt={5}>
+      <Heading as='h3' mt={5}>
         Easy Quiz Game!
       </Heading>
       <form>
-        <Flex direction="column">
+        <Flex direction='column'>
           <Input
-            variant="flushed"
-            placeholder="Your name"
-            w="30%"
-            onChange={(e) =>
-              setPlayerData({ id: Date.now(), name: e.target.value })
-            }
+            variant='flushed'
+            placeholder='Your name'
+            w='30%'
+            onChange={(e) => setPlayerData({ id: Date.now(), name: e.target.value })}
             required
             value={playersName}
             onKeyPress={handleStartGame}
             mt={5}
           />
           <Button
-            colorScheme="blue"
-            variant="solid"
+            colorScheme='blue'
+            variant='solid'
             onClick={startGame}
-            disabled={playersName === ""}
-            w="20%"
+            disabled={playersName === ''}
+            w='20%'
             mt={3}
           >
             Start
