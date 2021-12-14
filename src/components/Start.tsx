@@ -17,7 +17,9 @@ const Start = ({ startGame, setPlayerData, playersName }: Props) => {
   };
   return (
     <div>
-      <Text fontSize='3xl'>Easy Quiz Game!</Text>
+      <Text fontSize='3xl' my={5}>
+        Easy Quiz Game!
+      </Text>
       <form>
         <Flex direction='column'>
           <Input

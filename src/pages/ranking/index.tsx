@@ -16,7 +16,9 @@ export default function Ranking() {
   const ranking = useRanking();
   return (
     <>
-      <Text fontSize='3xl'>Ranking Page</Text>
+      <Text fontSize='3xl' my={5}>
+        Ranking Page
+      </Text>
       {!ranking ? (
         <Box textAlign='center'>
           <CircularProgress />
