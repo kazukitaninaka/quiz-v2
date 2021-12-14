@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { PlayerData } from '../types';
-import { Heading, Input, Button, Flex } from '@chakra-ui/react';
+import { Heading, Input, Button, Flex, Text } from '@chakra-ui/react';
 
 type Props = {
   startGame: () => void;
@@ -17,9 +17,7 @@ const Start = ({ startGame, setPlayerData, playersName }: Props) => {
   };
   return (
     <div>
-      <Heading as='h3' mt={5}>
-        Easy Quiz Game!
-      </Heading>
+      <Text fontSize='3xl'>Easy Quiz Game!</Text>
       <form>
         <Flex direction='column'>
           <Input

@@ -9,13 +9,14 @@ import {
   CircularProgress,
   Box,
 } from '@material-ui/core';
+import { Text } from '@chakra-ui/react';
 import useRanking from '../../hooks/useRanking';
 
 export default function Ranking() {
   const ranking = useRanking();
   return (
     <>
-      <h2>Ranking Page</h2>
+      <Text fontSize='3xl'>Ranking Page</Text>
       {!ranking ? (
         <Box textAlign='center'>
           <CircularProgress />
