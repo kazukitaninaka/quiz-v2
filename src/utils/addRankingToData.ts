@@ -1,4 +1,4 @@
-import { RankingData } from '../../types';
+import { RankingData } from '../types';
 import compare from './compare';
 
 const addRankingToData = (rawData: RankingData[]) => {

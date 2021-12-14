@@ -9,7 +9,7 @@ import {
   Paper,
   TableContainer,
 } from '@material-ui/core';
-import { PlayerData } from '../../types';
+import { PlayerData } from '../types';
 import useRanking from '../hooks/useRanking';
 
 type Props = {

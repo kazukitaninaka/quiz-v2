@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { RankingData } from '../../types';
+import { RankingData } from '../types';
 import { ref, get, child } from 'firebase/database';
 import addRankingToData from '../utils/addRankingToData';
 import { db } from '../../firebase';

@@ -5,7 +5,7 @@ import Start from '../components/Start';
 import Result from '../components/Result';
 import { db } from '../../firebase';
 import shuffleArray from '../utils/shuffle';
-import { PlayerData, QuizData, QuizInfo } from '../../types';
+import { PlayerData, QuizData, QuizInfo } from '../types';
 import { ref, set } from 'firebase/database';
 
 export default function Home() {

@@ -1,6 +1,6 @@
 import React, { useState, Dispatch, SetStateAction } from 'react';
 import { makeStyles, Box, Button } from '@material-ui/core';
-import { QuizInfo, UserAnswerStatus } from '../../types';
+import { QuizInfo, UserAnswerStatus } from '../types';
 
 type Props = {
   questionData: QuizInfo;

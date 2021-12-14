@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import { PlayerData } from '../../types';
+import { PlayerData } from '../types';
 import { Heading, Input, Button, Flex } from '@chakra-ui/react';
 
 type Props = {
