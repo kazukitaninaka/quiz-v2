@@ -30,7 +30,6 @@ const Start = ({ startGame, setPlayerData, playersName }: Props) => {
             required
             value={playersName}
             onKeyPress={handleStartGame}
-            mt={5}
           />
           <Button
             colorScheme='blue'
