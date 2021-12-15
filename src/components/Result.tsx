@@ -1,14 +1,4 @@
-import {
-  Link,
-  Box,
-  // Table,
-  TableBody,
-  TableHead,
-  TableCell,
-  TableRow,
-  Paper,
-  TableContainer,
-} from '@material-ui/core';
+import { Link, Box } from '@material-ui/core';
 import { Table, Thead, Tbody, Tr, Th, Td, Text } from '@chakra-ui/react';
 import { PlayerData } from '../types';
 import useRanking from '../hooks/useRanking';
@@ -23,9 +13,13 @@ const Result = ({ score, playerData }: Props) => {
 
   return (
     <div>
-      <h2>Finished!</h2>
-      <p>You scored {score} out of 5! Well done!</p>
-      <h2>Ranking</h2>
+      <Text fontSizr='3xl' mt={5}>
+        Finished!
+      </Text>
+      <Text>You scored {score} out of 5! Well done!</Text>
+      <Text fontSizr='3xl' mt={5}>
+        Ranking
+      </Text>
       <Table variant='simple'>
         <Thead>
           <Tr>
