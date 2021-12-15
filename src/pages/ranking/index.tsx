@@ -1,5 +1,6 @@
 import { Table, Thead, Tbody, Tr, Th, Td, Text, CircularProgress, Center } from '@chakra-ui/react';
 import useRanking from '../../hooks/useRanking';
+import Loading from '../../components/Loading';
 
 export default function Ranking() {
   const ranking = useRanking();
@@ -9,9 +10,7 @@ export default function Ranking() {
         Ranking Page
       </Text>
       {!ranking ? (
-        <Center>
-          <CircularProgress isIndeterminate />
-        </Center>
+        <Loading />
       ) : (
         <Table variant='simple'>
           <Thead>

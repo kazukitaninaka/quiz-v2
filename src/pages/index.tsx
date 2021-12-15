@@ -2,6 +2,7 @@ import { useState } from 'react';
 import QuestionCard from '../components/QuestionCard';
 import Start from '../components/Start';
 import Result from '../components/Result';
+import Loading from '../components/Loading';
 import { db } from '../../firebase';
 import { PlayerData } from '../types';
 import { ref, set } from 'firebase/database';
@@ -41,11 +42,7 @@ export default function Home() {
   }
 
   if (isLoading) {
-    return (
-      <Center>
-        <CircularProgress isIndeterminate />
-      </Center>
-    );
+    return <Loading />;
   }
 
   if (isError) {
