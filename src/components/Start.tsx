@@ -34,10 +34,7 @@ const Start = ({ startGame, setPlayerData, playersName }: Props) => {
           <Button
             color='white'
             bgColor='teal.400'
-            _hover={{
-              bgColor: 'teal.500',
-            }}
-            variant='solid'
+            _hover={{ bgColor: 'teal.500' }}
             onClick={startGame}
             disabled={playersName === ''}
             w='20%'
