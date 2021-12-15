@@ -32,7 +32,11 @@ const Start = ({ startGame, setPlayerData, playersName }: Props) => {
             onKeyPress={handleStartGame}
           />
           <Button
-            colorScheme='blue'
+            color='white'
+            bgColor='teal.400'
+            _hover={{
+              bgColor: 'teal.500',
+            }}
             variant='solid'
             onClick={startGame}
             disabled={playersName === ''}

@@ -3,7 +3,7 @@ import { Flex, Link, Text } from '@chakra-ui/react';
 
 export default function Header() {
   return (
-    <Flex p={5} backgroundColor='blue.500' as='header'>
+    <Flex p={5} backgroundColor='teal.400' as='header'>
       <Link href='/' _hover={{ textDecoration: 'none' }}>
         <Text fontSize='2xl' fontWeight='bold' color='white'>
           Quiz
