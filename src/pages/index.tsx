@@ -43,11 +43,6 @@ export default function Home() {
       );
     setQuestionNum(1);
   };
-  const handleAfterAnswering = (correct: boolean) => {
-    if (correct) {
-      setScore((prev) => prev + 1);
-    }
-  };
 
   const finishGame = () => {
     // send score to db
@@ -80,7 +75,7 @@ export default function Home() {
       <QuestionCard
         questionData={quiz[questionNum - 1]}
         questionNum={questionNum}
-        handleAfterAnswering={handleAfterAnswering}
+        setScore={setScore}
         setQuestionNum={setQuestionNum}
         finishGame={finishGame}
       />

@@ -5,10 +5,11 @@ import { QuizInfo } from '../types';
 type Props = {
   questionData: QuizInfo;
   setQuestionNum: Dispatch<SetStateAction<number>>;
-  handleAfterAnswering: (correct: boolean) => void;
+  setScore: Dispatch<SetStateAction<number>>;
   questionNum: number;
   finishGame: () => void;
 };
+
 const defaultStyle = {
   color: 'teal.400',
   bgColor: 'white',
@@ -27,7 +28,7 @@ const incorrectAnswerStyle = {
 
 const QuestionCard = ({
   questionData,
-  handleAfterAnswering,
+  setScore,
   setQuestionNum,
   questionNum,
   finishGame,
@@ -36,14 +37,14 @@ const QuestionCard = ({
   const [isAnswered, setIsAnswered] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
 
-  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
     setIsAnswered(true);
     const userAnswer = e.currentTarget.value;
     setUserAnswer(userAnswer);
     const isCorrect = questionData.correct_answer === userAnswer;
     setIsCorrect(isCorrect);
 
-    handleAfterAnswering(isCorrect);
+    if (isCorrect) setScore((prev) => prev + 1);
   };
 
   const goNextQuestion = () => {
@@ -78,7 +79,7 @@ const QuestionCard = ({
             pointerEvents={isAnswered ? 'none' : 'auto'}
             w='full'
             value={answer}
-            onClick={checkAnswer}
+            onClick={onAnswer}
             my={1}
             {...buttonStyle}
           >
