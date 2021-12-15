@@ -1,5 +1,5 @@
 import React, { useState, Dispatch, SetStateAction } from 'react';
-import { Button } from '@chakra-ui/react';
+import { Button, Text } from '@chakra-ui/react';
 import { QuizInfo } from '../types';
 
 type Props = {
@@ -55,8 +55,10 @@ const QuestionCard = ({
 
   return (
     <>
-      <p>Q{questionNum}/5</p>
-      <h3>{decodeURIComponent(questionData.question)}</h3>
+      <Text mt={2}>Question {questionNum}/5</Text>
+      <Text my={2} fontSize='xl'>
+        {decodeURIComponent(questionData.question)}
+      </Text>
       {questionData.answers.map((answer, index) => {
         const isCorrectAnswer = answer === questionData.correct_answer;
         const isUserAnswer = answer === userAnswer;
@@ -84,7 +86,11 @@ const QuestionCard = ({
           </Button>
         );
       })}
-      {!isAnswered ? null : isCorrect ? <h3>🎉Correct!</h3> : <h3>😭Incorrect...</h3>}
+      {!isAnswered ? null : isCorrect ? (
+        <Text my={2}>🎉 Correct!</Text>
+      ) : (
+        <Text my={2}>😭 Incorrect...</Text>
+      )}
       {!isAnswered ? null : questionNum === 5 ? (
         <Button
           color='white'
