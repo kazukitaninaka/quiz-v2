@@ -1,6 +1,6 @@
 import React, { useState, Dispatch, SetStateAction } from 'react';
 import { Button } from '@chakra-ui/react';
-import { QuizInfo, UserAnswerStatus } from '../types';
+import { QuizInfo } from '../types';
 
 type Props = {
   questionData: QuizInfo;
@@ -76,7 +76,7 @@ const QuestionCard = ({
             pointerEvents={isAnswered ? 'none' : 'auto'}
             w='full'
             value={answer}
-            onClick={(e: React.MouseEvent<HTMLButtonElement>) => checkAnswer(e)}
+            onClick={checkAnswer}
             my={1}
             {...buttonStyle}
           >
