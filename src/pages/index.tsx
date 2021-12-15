@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Container, Box, CircularProgress } from '@material-ui/core';
+import { Box, CircularProgress } from '@material-ui/core';
 import QuestionCard from '../components/QuestionCard';
 import Start from '../components/Start';
 import Result from '../components/Result';
@@ -7,6 +7,7 @@ import { db } from '../../firebase';
 import shuffleArray from '../utils/shuffle';
 import { PlayerData, QuizData, QuizInfo } from '../types';
 import { ref, set } from 'firebase/database';
+import useQuizData from '../hooks/useQuizData';
 
 export default function Home() {
   const [gameStarted, setGameStarted] = useState<boolean>(false);
@@ -14,33 +15,12 @@ export default function Home() {
     id: null,
     name: '',
   });
-  const [quiz, setQuiz] = useState<QuizInfo[] | null>(null);
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  const [error, setError] = useState(null);
   const [questionNum, setQuestionNum] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
+  const { quiz, isLoading, isError } = useQuizData(gameStarted);
 
   const startGame = () => {
     setGameStarted(true);
-    fetch(
-      'https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple&encode=url3986',
-    )
-      .then((res) => res.json())
-      .then(
-        (quizData) => {
-          const data = quizData.results.map((quiz: QuizData) => ({
-            ...quiz,
-            answers: shuffleArray([...quiz.incorrect_answers, quiz.correct_answer]),
-          }));
-          console.log(data);
-          setQuiz(data);
-          setIsLoaded(true);
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        },
-      );
     setQuestionNum(1);
   };
 
@@ -60,9 +40,9 @@ export default function Home() {
     content = (
       <Start startGame={startGame} setPlayerData={setPlayerData} playersName={playerData.name} />
     );
-  } else if (error) {
-    content = <div>{error}</div>;
-  } else if (!isLoaded || !quiz) {
+  } else if (isError) {
+    content = <div>error</div>;
+  } else if (isLoading || !quiz) {
     content = (
       <Box textAlign='center'>
         <CircularProgress />
