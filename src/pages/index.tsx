@@ -18,12 +18,12 @@ export default function Home() {
   const [score, setScore] = useState<number>(0);
   const { quiz, isLoading, isError } = useQuizData(gameStarted);
 
-  const startGame = () => {
+  function startGame() {
     setGameStarted(true);
     setQuestionNum(1);
-  };
+  }
 
-  const finishGame = () => {
+  function finishGame() {
     // send score to db
     set(ref(db, `ranking/${playerData.id}`), {
       name: playerData.name,
@@ -32,7 +32,7 @@ export default function Home() {
     });
     // finish game
     setQuestionNum((prev) => prev + 1);
-  };
+  }
 
   if (!gameStarted) {
     return (

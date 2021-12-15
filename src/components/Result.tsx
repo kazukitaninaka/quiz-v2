@@ -8,7 +8,7 @@ type Props = {
   playerData: PlayerData;
 };
 
-const Result = ({ score, playerData }: Props) => {
+export default function Result({ score, playerData }: Props) {
   const ranking = useRanking();
 
   return (
@@ -54,6 +54,4 @@ const Result = ({ score, playerData }: Props) => {
       </Box>
     </div>
   );
-};
-
-export default Result;
+}

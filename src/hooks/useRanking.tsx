@@ -18,7 +18,7 @@ export default function useRanking() {
           setRanking([]);
         }
       })
-      .catch((error) => {
+      .catch(() => {
         setRanking([]);
       });
   }, []);

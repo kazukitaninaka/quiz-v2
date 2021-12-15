@@ -1,7 +1,7 @@
 import { RankingData } from '../types';
 import compare from './compare';
 
-const addRankingToData = (rawData: RankingData[]) => {
+function addRankingToData(rawData: RankingData[]) {
   let data: RankingData[] = [];
   for (let id in rawData) {
     data.push(rawData[id]);
@@ -19,6 +19,6 @@ const addRankingToData = (rawData: RankingData[]) => {
     }
   });
   return data;
-};
+}
 
 export default addRankingToData;

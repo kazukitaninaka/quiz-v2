@@ -8,13 +8,13 @@ type Props = {
   playersName: string;
 };
 
-const Start = ({ startGame, setPlayerData, playersName }: Props) => {
+export default function Start({ startGame, setPlayerData, playersName }: Props) {
   // Enabling pressing enter to start game
-  const handleStartGame = (e: React.KeyboardEvent<HTMLDivElement>) => {
+  function handleStartGame(e: React.KeyboardEvent<HTMLDivElement>) {
     if (playersName !== '' && e.key === 'Enter') {
       startGame();
     }
-  };
+  }
   return (
     <div>
       <Text fontSize='3xl' my={5}>
@@ -46,6 +46,4 @@ const Start = ({ startGame, setPlayerData, playersName }: Props) => {
       </form>
     </div>
   );
-};
-
-export default Start;
+}

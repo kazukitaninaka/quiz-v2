@@ -26,18 +26,18 @@ const incorrectAnswerStyle = {
   bgColor: 'red.400',
 };
 
-const QuestionCard = ({
+export default function QuestionCard({
   questionData,
   setScore,
   setQuestionNum,
   questionNum,
   finishGame,
-}: Props) => {
+}: Props) {
   const [userAnswer, setUserAnswer] = useState<string | null>(null);
   const [isAnswered, setIsAnswered] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
 
-  const onAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
+  function onAnswer(e: React.MouseEvent<HTMLButtonElement>) {
     setIsAnswered(true);
     const userAnswer = e.currentTarget.value;
     setUserAnswer(userAnswer);
@@ -45,14 +45,14 @@ const QuestionCard = ({
     setIsCorrect(isCorrect);
 
     if (isCorrect) setScore((prev) => prev + 1);
-  };
+  }
 
-  const goNextQuestion = () => {
+  function goNextQuestion() {
     setUserAnswer(null);
     setIsAnswered(false);
     setIsCorrect(false);
     setQuestionNum((prev) => prev + 1);
-  };
+  }
 
   return (
     <>
@@ -113,6 +113,4 @@ const QuestionCard = ({
       )}
     </>
   );
-};
-
-export default QuestionCard;
+}

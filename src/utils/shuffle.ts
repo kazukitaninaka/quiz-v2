@@ -1,4 +1,4 @@
-const shuffleArray = (array: string[]) => {
+function shuffleArray(array: string[]) {
   let m = array.length,
     t,
     i;
@@ -15,6 +15,6 @@ const shuffleArray = (array: string[]) => {
   }
 
   return array;
-};
+}
 
 export default shuffleArray;
