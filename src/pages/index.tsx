@@ -58,7 +58,7 @@ export default function Home() {
 
   return (
     <QuestionCard
-      questionData={quiz[questionNum - 1]}
+      questionData={quiz![questionNum - 1]}
       questionNum={questionNum}
       setScore={setScore}
       setQuestionNum={setQuestionNum}
