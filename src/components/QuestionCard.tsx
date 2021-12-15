@@ -62,7 +62,7 @@ const QuestionCard = ({
   const buttonStyle = useStyles();
 
   return (
-    <div>
+    <>
       <p>Q{questionNum}/5</p>
       <h3>{decodeURIComponent(questionData.question)}</h3>
       {questionData.answers.map((answer, index) => {
@@ -118,7 +118,7 @@ const QuestionCard = ({
           Result
         </Button>
       ) : null}
-    </div>
+    </>
   );
 };
 
