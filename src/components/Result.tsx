@@ -17,7 +17,7 @@ export default function Result({ score, playerData }: Props) {
         Finished!
       </Text>
       <Text>You scored {score} out of 5! Well done!</Text>
-      <Text fontSizr='3xl' mt={5}>
+      <Text fontSize='3xl' mt={5}>
         Ranking
       </Text>
       <Table variant='simple'>
