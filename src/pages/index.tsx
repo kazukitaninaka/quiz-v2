@@ -7,7 +7,7 @@ import { db } from '../../firebase';
 import { PlayerData } from '../types';
 import { ref, set } from 'firebase/database';
 import useQuizData from '../hooks/useQuizData';
-import { Center, CircularProgress, Text } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 
 export default function Home() {
   const [gameStarted, setGameStarted] = useState<boolean>(false);
@@ -44,9 +44,8 @@ export default function Home() {
   if (isLoading) {
     return <Loading />;
   }
-
   if (isError) {
-    return <Text>Error occured...</Text>;
+    return <Text fontSize='2xl'>Error occured...</Text>;
   }
 
   if (questionNum - 1 >= quiz!.length) {
