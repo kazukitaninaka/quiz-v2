@@ -1,5 +1,4 @@
-import { Link, Box } from '@material-ui/core';
-import { Table, Thead, Tbody, Tr, Th, Td, Text } from '@chakra-ui/react';
+import { Table, Thead, Tbody, Tr, Th, Td, Text, Link, Flex } from '@chakra-ui/react';
 import { PlayerData } from '../types';
 import useRanking from '../hooks/useRanking';
 
@@ -44,14 +43,14 @@ export default function Result({ score, playerData }: Props) {
             })}
         </Tbody>
       </Table>
-      <Box mt={2}>
-        <Link href='/' underline='always' style={{ marginRight: '16px', marginTop: '16px' }}>
+      <Flex mt={5} gap={5}>
+        <Link href='/' color='teal.500' textDecoration='underline'>
           Go Back to Top
         </Link>
-        <Link href='/ranking' underline='always'>
+        <Link href='/ranking' color='teal.500' textDecoration='underline'>
           Go to Ranking Page
         </Link>
-      </Box>
+      </Flex>
     </div>
   );
 }
