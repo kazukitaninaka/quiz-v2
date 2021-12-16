@@ -1,4 +1,3 @@
-import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { ChakraProvider, Flex, Box } from '@chakra-ui/react';
 import Header from '../components/Header';
