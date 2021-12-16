@@ -1,4 +1,3 @@
-// import { AppBar, Toolbar, Typography, Link } from "@material-ui/core";
 import { Flex, Link, Text } from '@chakra-ui/react';
 
 export default function Header() {
