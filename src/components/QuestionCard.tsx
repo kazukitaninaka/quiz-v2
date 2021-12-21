@@ -1,9 +1,10 @@
 import React, { useState, Dispatch, SetStateAction } from 'react';
 import { Button, Text } from '@chakra-ui/react';
 import { QuizInfo } from '../types';
+import { useRecoilValue } from 'recoil';
+import { currentQuizInfo } from '../atoms';
 
 type Props = {
-  questionData: QuizInfo;
   setQuestionNum: Dispatch<SetStateAction<number>>;
   setScore: Dispatch<SetStateAction<number>>;
   questionNum: number;
@@ -26,16 +27,11 @@ const incorrectAnswerStyle = {
   bgColor: 'red.400',
 };
 
-export default function QuestionCard({
-  questionData,
-  setScore,
-  setQuestionNum,
-  questionNum,
-  finishGame,
-}: Props) {
+export default function QuestionCard({ setScore, setQuestionNum, questionNum, finishGame }: Props) {
   const [userAnswer, setUserAnswer] = useState<string | null>(null);
   const [isAnswered, setIsAnswered] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
+  const questionData = useRecoilValue(currentQuizInfo);
 
   function onAnswer(e: React.MouseEvent<HTMLButtonElement>) {
     setIsAnswered(true);

@@ -1,5 +1,5 @@
 import { atom, RecoilValue, selector } from 'recoil';
-import { FetchedQuizData, QuizInfo } from './types';
+import { FetchedQuizData, QuizInfo, QuizData } from './types';
 import shuffleArray from './utils/shuffle';
 
 export const isGameStartedState = atom<boolean>({
@@ -21,6 +21,19 @@ export const quizDataQuery = selector({
       ...quiz,
       answers: shuffleArray([...quiz.incorrect_answers, quiz.correct_answer]),
     }));
-    return quizData;
+    return quizData || [];
+  },
+});
+
+export const questionNumState = atom<number>({
+  key: 'questionNumState',
+  default: 0,
+});
+
+export const currentQuizInfo = selector({
+  key: 'currentQuizInfo',
+  get: ({ get }) => {
+    console.log(get(quizDataQuery)![get(questionNumState) - 1]);
+    return get(quizDataQuery)![get(questionNumState) - 1];
   },
 });

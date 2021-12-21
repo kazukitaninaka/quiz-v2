@@ -6,24 +6,21 @@ import Loading from '../components/Loading';
 import { db } from '../../firebase';
 import { PlayerData } from '../types';
 import { ref, set } from 'firebase/database';
-import useQuizData from '../hooks/useQuizData';
 import { Text } from '@chakra-ui/react';
-import { useRecoilValue, useRecoilValueLoadable, useSetRecoilState } from 'recoil';
-import { isGameStartedState, quizDataQuery } from '../atoms';
+import { useRecoilValue, useRecoilValueLoadable, useSetRecoilState, useRecoilState } from 'recoil';
+import { isGameStartedState, questionNumState, quizDataQuery } from '../atoms';
 
 export default function Home() {
-  const [gameStarted, setGameStarted] = useState<boolean>(false);
   const [playerData, setPlayerData] = useState<PlayerData>({
     id: null,
     name: '',
   });
-  const [questionNum, setQuestionNum] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
-  // const { quiz, isLoading, isError } = useQuizData(gameStarted);
 
   const isGameStarted = useRecoilValue(isGameStartedState);
   const setIsGameStarted = useSetRecoilState(isGameStartedState);
   const quiz = useRecoilValueLoadable(quizDataQuery);
+  const [questionNum, setQuestionNum] = useRecoilState(questionNumState);
 
   function startGame() {
     // setGameStarted(true);
@@ -39,7 +36,7 @@ export default function Home() {
       score,
     });
     // finish game
-    setQuestionNum((prev) => prev + 1);
+    setQuestionNum((prev: number) => prev + 1);
   }
 
   if (!isGameStarted) {
@@ -55,7 +52,6 @@ export default function Home() {
     case 'hasValue':
       return (
         <QuestionCard
-          questionData={quiz.contents![questionNum - 1]}
           questionNum={questionNum}
           setScore={setScore}
           setQuestionNum={setQuestionNum}
