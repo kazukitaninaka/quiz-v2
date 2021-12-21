@@ -8,6 +8,8 @@ import { PlayerData } from '../types';
 import { ref, set } from 'firebase/database';
 import useQuizData from '../hooks/useQuizData';
 import { Text } from '@chakra-ui/react';
+import { useRecoilValue, useRecoilValueLoadable, useSetRecoilState } from 'recoil';
+import { isGameStartedState, quizDataQuery } from '../atoms';
 
 export default function Home() {
   const [gameStarted, setGameStarted] = useState<boolean>(false);
@@ -17,10 +19,15 @@ export default function Home() {
   });
   const [questionNum, setQuestionNum] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
-  const { quiz, isLoading, isError } = useQuizData(gameStarted);
+  // const { quiz, isLoading, isError } = useQuizData(gameStarted);
+
+  const isGameStarted = useRecoilValue(isGameStartedState);
+  const setIsGameStarted = useSetRecoilState(isGameStartedState);
+  const quiz = useRecoilValueLoadable(quizDataQuery);
 
   function startGame() {
-    setGameStarted(true);
+    // setGameStarted(true);
+    setIsGameStarted(true);
     setQuestionNum(1);
   }
 
@@ -35,30 +42,46 @@ export default function Home() {
     setQuestionNum((prev) => prev + 1);
   }
 
-  if (!gameStarted) {
+  if (!isGameStarted) {
     return (
       <Start startGame={startGame} setPlayerData={setPlayerData} playersName={playerData.name} />
     );
   }
-
-  if (isLoading) {
-    return <Loading />;
-  }
-  if (isError) {
-    return <Text fontSize='2xl'>Error occured...</Text>;
-  }
-
-  if (questionNum - 1 >= quiz!.length) {
+  if (questionNum - 1 >= quiz.contents.length) {
     return <Result score={score} playerData={playerData} />;
   }
 
-  return (
-    <QuestionCard
-      questionData={quiz![questionNum - 1]}
-      questionNum={questionNum}
-      setScore={setScore}
-      setQuestionNum={setQuestionNum}
-      finishGame={finishGame}
-    />
-  );
+  switch (quiz.state) {
+    case 'hasValue':
+      return (
+        <QuestionCard
+          questionData={quiz.contents![questionNum - 1]}
+          questionNum={questionNum}
+          setScore={setScore}
+          setQuestionNum={setQuestionNum}
+          finishGame={finishGame}
+        />
+      );
+    case 'loading':
+      return <Loading />;
+    case 'hasError':
+      return <Text fontSize='2xl'>Error occured...</Text>;
+  }
+
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
+  // if (isError) {
+  //   return <Text fontSize='2xl'>Error occured...</Text>;
+  // }
+
+  // return (
+  //   <QuestionCard
+  //     questionData={quiz![questionNum - 1]}
+  //     questionNum={questionNum}
+  //     setScore={setScore}
+  //     setQuestionNum={setQuestionNum}
+  //     finishGame={finishGame}
+  //   />
+  // );
 }
