@@ -1,15 +1,9 @@
-import React, { useState, Dispatch, SetStateAction } from 'react';
+import React, { useState } from 'react';
 import { Button, Text } from '@chakra-ui/react';
-import { QuizInfo } from '../types';
-import { useRecoilValue } from 'recoil';
-import { currentQuizInfo } from '../atoms';
-
-type Props = {
-  setQuestionNum: Dispatch<SetStateAction<number>>;
-  setScore: Dispatch<SetStateAction<number>>;
-  questionNum: number;
-  finishGame: () => void;
-};
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { currentQuizInfo, playerDataState, questionNumState, scoreState } from '../atoms';
+import { ref, set } from 'firebase/database';
+import { db } from '../../firebase';
 
 const defaultStyle = {
   color: 'teal.400',
@@ -27,11 +21,14 @@ const incorrectAnswerStyle = {
   bgColor: 'red.400',
 };
 
-export default function QuestionCard({ setScore, setQuestionNum, questionNum, finishGame }: Props) {
+export default function QuestionCard() {
   const [userAnswer, setUserAnswer] = useState<string | null>(null);
   const [isAnswered, setIsAnswered] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
   const questionData = useRecoilValue(currentQuizInfo);
+  const [questionNum, setQuestionNum] = useRecoilState(questionNumState);
+  const playerData = useRecoilValue(playerDataState);
+  const [score, setScore] = useRecoilState(scoreState);
 
   function onAnswer(e: React.MouseEvent<HTMLButtonElement>) {
     setIsAnswered(true);
@@ -48,6 +45,17 @@ export default function QuestionCard({ setScore, setQuestionNum, questionNum, fi
     setIsAnswered(false);
     setIsCorrect(false);
     setQuestionNum((prev) => prev + 1);
+  }
+
+  function finishGame() {
+    // send score to db
+    set(ref(db, `ranking/${playerData!.id}`), {
+      name: playerData!.name,
+      id: playerData!.id,
+      score,
+    });
+    // finish game
+    setQuestionNum((prev: number) => prev + 1);
   }
 
   return (

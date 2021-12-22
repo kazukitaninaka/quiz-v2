@@ -1,14 +1,12 @@
 import { Table, Thead, Tbody, Tr, Th, Td, Text, Link, Flex } from '@chakra-ui/react';
-import { PlayerData } from '../types';
 import useRanking from '../hooks/useRanking';
+import { useRecoilValue } from 'recoil';
+import { playerDataState, scoreState } from '../atoms';
 
-type Props = {
-  score: number;
-  playerData: PlayerData;
-};
-
-export default function Result({ score, playerData }: Props) {
+export default function Result() {
   const ranking = useRanking();
+  const playerData = useRecoilValue(playerDataState);
+  const score = useRecoilValue(scoreState);
 
   return (
     <div>
@@ -30,7 +28,7 @@ export default function Result({ score, playerData }: Props) {
         <Tbody>
           {ranking &&
             ranking.map((person) => {
-              const isYou = person.id === playerData.id;
+              const isYou = person.id === playerData!.id;
               return (
                 <Tr key={person.id}>
                   <Td fontWeight={isYou ? 'bold' : 'normal'}>{person.ranking}</Td>
