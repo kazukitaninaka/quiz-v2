@@ -5,12 +5,12 @@ import { RecoilRoot } from 'recoil';
 
 describe('Home', () => {
   it('disables button when input is empty', () => {
-    const { container, getByRole } = render(
+    render(
       <RecoilRoot>
         <Start />
       </RecoilRoot>,
     );
-    expect(getByRole('button')).toBeDisabled();
+    expect(screen.getByRole('button')).toBeDisabled();
   });
   it('enables button when input is filled', () => {
     render(
