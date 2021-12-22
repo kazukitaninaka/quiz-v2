@@ -92,9 +92,13 @@ export default function QuestionCard() {
         );
       })}
       {!isAnswered ? null : isCorrect ? (
-        <Text my={2}>🎉 Correct!</Text>
+        <Text fontWeight='bold' fontSize='lg' my={2}>
+          🎉 Correct!
+        </Text>
       ) : (
-        <Text my={2}>😭 Incorrect...</Text>
+        <Text fontWeight='bold' fontSize='lg' my={2}>
+          😭 Incorrect...
+        </Text>
       )}
       {!isAnswered ? null : questionNum === 5 ? (
         <Button
