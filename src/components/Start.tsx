@@ -1,17 +1,19 @@
-import React, { Dispatch, SetStateAction } from 'react';
-import { PlayerData } from '../types';
-import { Heading, Input, Button, Flex, Text } from '@chakra-ui/react';
+import { Input, Button, Flex, Text } from '@chakra-ui/react';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { isGameStartedState, playerDataState, questionNumState } from '../atoms';
 
-type Props = {
-  startGame: () => void;
-  setPlayerData: Dispatch<SetStateAction<PlayerData>>;
-  playersName: string;
-};
+export default function Start() {
+  const setIsGameStarted = useSetRecoilState(isGameStartedState);
+  const setQuestionNum = useSetRecoilState(questionNumState);
+  const [playerData, setPlayerData] = useRecoilState(playerDataState);
 
-export default function Start({ startGame, setPlayerData, playersName }: Props) {
+  function startGame() {
+    setIsGameStarted(true);
+    setQuestionNum(1);
+  }
   // Enabling pressing enter to start game
   function handleStartGame(e: React.KeyboardEvent<HTMLDivElement>) {
-    if (playersName !== '' && e.key === 'Enter') {
+    if (playerData?.name && e.key === 'Enter') {
       startGame();
     }
   }
@@ -28,7 +30,7 @@ export default function Start({ startGame, setPlayerData, playersName }: Props) 
             w='30%'
             onChange={(e) => setPlayerData({ id: Date.now(), name: e.target.value })}
             required
-            value={playersName}
+            value={playerData?.name}
             onKeyPress={handleStartGame}
           />
           <Button
@@ -36,7 +38,7 @@ export default function Start({ startGame, setPlayerData, playersName }: Props) 
             bgColor='teal.400'
             _hover={{ bgColor: 'teal.500' }}
             onClick={startGame}
-            disabled={playersName === ''}
+            disabled={!playerData?.name}
             w='20%'
             mt={3}
           >
