@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent, screen, act } from '@testing-library/react';
 import Start from '../../src/components/Start';
 import { RecoilRoot } from 'recoil';
 
@@ -18,7 +18,9 @@ describe('Home', () => {
         <Start />
       </RecoilRoot>,
     );
-    fireEvent.change(screen.getByRole('textbox'), { target: { value: '田中' } });
+    act(() => {
+      fireEvent.change(screen.getByRole('textbox'), { target: { value: '田中' } });
+    });
     expect(screen.getByRole('button')).not.toBeDisabled();
   });
 });
