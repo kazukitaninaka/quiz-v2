@@ -20,6 +20,7 @@ const incorrectAnswerStyle = {
   color: 'white',
   bgColor: 'red.400',
 };
+type ButtonStyle = typeof correctAnswerStyle | typeof incorrectAnswerStyle | typeof defaultStyle;
 
 export default function QuestionCard() {
   const [userAnswer, setUserAnswer] = useState<string | null>(null);
@@ -67,7 +68,8 @@ export default function QuestionCard() {
       {questionData.answers.map((answer, index) => {
         const isCorrectAnswer = answer === questionData.correct_answer;
         const isUserAnswer = answer === userAnswer;
-        let buttonStyle, emoji;
+        let buttonStyle: ButtonStyle;
+        let emoji: '🙆‍♂️' | '🙅‍♀️' | null = null;
         if (isAnswered && isCorrectAnswer) {
           buttonStyle = correctAnswerStyle;
           emoji = '🙆‍♂️';

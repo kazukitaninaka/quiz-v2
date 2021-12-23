@@ -1,4 +1,4 @@
-import { Table, Thead, Tbody, Tr, Th, Td, Text, CircularProgress, Center } from '@chakra-ui/react';
+import { Table, Thead, Tbody, Tr, Th, Td, Text } from '@chakra-ui/react';
 import useRanking from '../../hooks/useRanking';
 import Loading from '../../components/Loading';
 

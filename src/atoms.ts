@@ -15,8 +15,7 @@ export const questionNumState = atom<number>({
 export const currentQuizInfo = selector({
   key: 'currentQuizInfo',
   get: ({ get }) => {
-    console.log(get(quizDataQuery)![get(questionNumState) - 1]);
-    return get(quizDataQuery)![get(questionNumState) - 1];
+    return get(quizDataState)![get(questionNumState) - 1];
   },
 });
 
@@ -46,4 +45,10 @@ export const quizDataQuery = selector({
     }));
     return quizData || [];
   },
+});
+
+// convert selector to atom due to simplicity of testing
+export const quizDataState = atom({
+  key: 'quizDataState',
+  default: quizDataQuery,
 });
