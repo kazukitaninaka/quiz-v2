@@ -4,11 +4,11 @@ import Result from '../components/Result';
 import Loading from '../components/Loading';
 import { Text } from '@chakra-ui/react';
 import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
-import { isGameStartedState, questionNumState, quizDataQuery } from '../atoms';
+import { isGameStartedState, questionNumState, quizDataState } from '../atoms';
 
 export default function Home() {
   const isGameStarted = useRecoilValue(isGameStartedState);
-  const quiz = useRecoilValueLoadable(quizDataQuery);
+  const quiz = useRecoilValueLoadable(quizDataState);
   const questionNum = useRecoilValue(questionNumState);
 
   if (!isGameStarted) {
