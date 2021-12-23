@@ -1,8 +1,14 @@
 import React from 'react';
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import Home from '../../src/pages/index';
-import { RecoilRoot } from 'recoil';
-import { isGameStartedState, questionNumState, quizDataState } from '../../src/atoms';
+import { RecoilRoot, snapshot_UNSTABLE } from 'recoil';
+import {
+  isGameStartedState,
+  playerDataState,
+  questionNumState,
+  quizDataState,
+  scoreState,
+} from '../../src/atoms';
 
 const results = [
   {
@@ -92,5 +98,64 @@ describe('Home', () => {
     );
     const answerButtons = screen.getAllByRole('button');
     expect(answerButtons.length).toBe(4);
+  });
+
+  it('shows next question button when answered', async () => {
+    render(
+      <RecoilRoot
+        initializeState={(snap) => {
+          snap.set(isGameStartedState, true);
+          snap.set(questionNumState, 1);
+          snap.set(quizDataState, results);
+        }}
+      >
+        <Home />
+      </RecoilRoot>,
+    );
+    fireEvent.click(screen.getAllByRole('button')[0]);
+    expect(screen.getAllByRole('button')).toHaveLength(5);
+  });
+
+  it('goes next question when next question button is clicked', () => {
+    render(
+      <RecoilRoot
+        initializeState={(snap) => {
+          snap.set(isGameStartedState, true);
+          snap.set(questionNumState, 1);
+          snap.set(quizDataState, results);
+        }}
+      >
+        <Home />
+      </RecoilRoot>,
+    );
+    fireEvent.click(screen.getAllByRole('button')[0]); // click one of the answer buttons
+    fireEvent.click(screen.getByText('Next Question')); // click next question button
+
+    const answerButtons = screen.getAllByRole('button');
+    expect(answerButtons.length).toBe(4);
+    expect(screen.getByText('Question 2/5')).toBeInTheDocument();
+  });
+
+  it('renders Ranking.tsx when complete all questions', async () => {
+    render(
+      <RecoilRoot
+        initializeState={(snap) => {
+          snap.set(isGameStartedState, true);
+          snap.set(questionNumState, 5);
+          snap.set(quizDataState, results);
+          snap.set(playerDataState, { id: 12345678, name: '山田' });
+          snap.set(scoreState, 3);
+        }}
+      >
+        <Home />
+      </RecoilRoot>,
+    );
+    fireEvent.click(screen.getAllByRole('button')[0]); // click one of the answer buttons
+    fireEvent.click(screen.getByText('Result')); // click result button
+
+    expect(screen.getByText('Ranking')).toBeInTheDocument();
+
+    await waitFor(() => screen.getByRole('table'));
+    expect(screen.getByRole('table')).toBeInTheDocument(); // make sure ranking table is successfully rendered
   });
 });
