@@ -1,4 +1,4 @@
-import { Input, Button, Flex, Text } from '@chakra-ui/react';
+import { Input, Button, Flex, Text, Select } from '@chakra-ui/react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { isGameStartedState, playerDataState, questionNumState } from '../atoms';
 
@@ -24,6 +24,16 @@ export default function Start() {
       </Text>
       <form>
         <Flex direction='column'>
+          <Text as='i' mb={3}>
+            Choose a genre.
+          </Text>
+          <Select variant='outline' w='40%' mb={4}>
+            <option value='9'>General Knowledge</option>
+            <option value='18'>Computer Science</option>
+          </Select>
+          <Text as='i' mb={3}>
+            Enter your name.
+          </Text>
           <Input
             variant='flushed'
             placeholder='Your name'
@@ -32,6 +42,7 @@ export default function Start() {
             required
             value={playerData?.name}
             onKeyPress={handleStartGame}
+            mb={4}
           />
           <Button
             color='white'
@@ -40,7 +51,6 @@ export default function Start() {
             onClick={startGame}
             disabled={!playerData?.name}
             w='20%'
-            mt={3}
           >
             Start
           </Button>
