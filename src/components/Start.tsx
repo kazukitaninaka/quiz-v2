@@ -1,10 +1,16 @@
 import { Input, Button, Flex, Text, Select } from '@chakra-ui/react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { isGameStartedState, playerDataState, questionNumState } from '../atoms';
+import {
+  isGameStartedState,
+  playerDataState,
+  questionNumState,
+  selectedGenreState,
+} from '../atoms';
 
 export default function Start() {
   const setIsGameStarted = useSetRecoilState(isGameStartedState);
   const setQuestionNum = useSetRecoilState(questionNumState);
+  const setGenreNum = useSetRecoilState(selectedGenreState);
   const [playerData, setPlayerData] = useRecoilState(playerDataState);
 
   function startGame() {
@@ -27,7 +33,12 @@ export default function Start() {
           <Text as='i' mb={3}>
             Choose a genre.
           </Text>
-          <Select variant='outline' w='40%' mb={4}>
+          <Select
+            variant='outline'
+            w='40%'
+            mb={4}
+            onChange={(e) => setGenreNum(parseInt(e.target.value))}
+          >
             <option value='9'>General Knowledge</option>
             <option value='18'>Computer Science</option>
           </Select>

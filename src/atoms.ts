@@ -29,16 +29,21 @@ export const playerDataState = atom<PlayerData>({
   default: null,
 });
 
-async function fetchQuiz(): Promise<FetchedQuizData> {
+export const selectedGenreState = atom<number>({
+  key: 'selecedGenreState',
+  default: 9, // genre "general knowledge" is category 9 for the api
+});
+
+async function fetchQuiz(genreNum: number): Promise<FetchedQuizData> {
   return fetch(
-    'https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple&encode=url3986',
+    `https://opentdb.com/api.php?amount=5&category=${genreNum.toString()}&difficulty=easy&type=multiple&encode=url3986`,
   ).then((res) => res.json());
 }
-export const quizDataQuery = selector({
+const quizDataQuery = selector({
   key: 'quizData',
   get: async ({ get }) => {
     if (!get(isGameStartedState)) return;
-    const data = await fetchQuiz();
+    const data = await fetchQuiz(get(selectedGenreState));
     const quizData = data.results.map((quiz) => ({
       ...quiz,
       answers: shuffleArray([...quiz.incorrect_answers, quiz.correct_answer]),
