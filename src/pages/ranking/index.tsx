@@ -9,7 +9,7 @@ export default function Ranking() {
       <Text fontSize='3xl' my={5}>
         Ranking Page
       </Text>
-      {!ranking ? (
+      {!ranking.length ? (
         <Loading />
       ) : (
         <Table variant='simple'>
