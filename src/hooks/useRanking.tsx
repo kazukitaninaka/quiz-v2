@@ -5,7 +5,7 @@ import addRankingToData from '../utils/addRankingToData';
 import { db } from '../../firebase';
 
 export default function useRanking() {
-  const [ranking, setRanking] = useState<RankingData[]>();
+  const [ranking, setRanking] = useState<RankingData[]>([]);
   useEffect(() => {
     const dbRef = ref(db);
     get(child(dbRef, 'ranking'))
