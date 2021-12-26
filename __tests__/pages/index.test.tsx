@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import Home from '../../src/pages/index';
-import { RecoilRoot, snapshot_UNSTABLE } from 'recoil';
+import { RecoilRoot } from 'recoil';
 import {
   isGameStartedState,
   playerDataState,
@@ -155,7 +155,7 @@ describe('Home', () => {
 
     expect(screen.getByText('Ranking')).toBeInTheDocument();
 
-    await waitFor(() => screen.getByRole('table'));
-    expect(screen.getByRole('table')).toBeInTheDocument(); // make sure ranking table is successfully rendered
+    const tableElement = await screen.findByRole('table');
+    expect(tableElement).toBeInTheDocument(); // make sure ranking table is successfully rendered
   });
 });
