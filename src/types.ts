@@ -1,7 +1,7 @@
 export type PlayerData = {
-  id: number;
+  id: number | null;
   name: string;
-} | null;
+};
 
 export type QuizData = {
   category: string;
