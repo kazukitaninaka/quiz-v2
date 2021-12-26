@@ -12,6 +12,7 @@ export const questionNumState = atom<number>({
   default: 0,
 });
 
+// return info of only question 1 if the player is dealing with question 1.
 export const currentQuizInfo = selector({
   key: 'currentQuizInfo',
   get: ({ get }) => {
@@ -26,7 +27,10 @@ export const scoreState = atom<number>({
 
 export const playerDataState = atom<PlayerData>({
   key: 'playerData',
-  default: null,
+  default: {
+    id: null,
+    name: '',
+  },
 });
 
 async function fetchQuiz(): Promise<FetchedQuizData> {

@@ -6,8 +6,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint:ts": "tsc --noEmit",
     "fmt": "prettier --write 'src/**/*.{ts,tsx}'",
-    "test": "jest --watch --env=jsdom"
+    "test": "jest --env=jsdom"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.7.3",
